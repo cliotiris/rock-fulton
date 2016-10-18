@@ -1,0 +1,116 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Rock Fulton!</title>
+		<meta name="description" content="Simple app to help you find the painted rocks around Fulton, MO">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+        <meta property="fb:app_id" content="965530076888931" />
+		<meta property="og:title" content="Rock Fulton" />
+		<meta property="og:description" content="Simple app to let you find the painted rocks in Fulton, MO." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://rock-fulton.firebaseapp.com/" />
+		<meta property="og:image" content="http://rock-fulton.firebaseapp.com/img/fb-og-image.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<link rel="stylesheet" href="css/normalize.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+		<link rel="stylesheet" href="css/main.css">
+
+		<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	</head>
+	<body>
+
+
+		<header>
+			<h1>Rock Fulton!</h1>
+			<a href="#" id="login-button">
+				<img src="/img/fb-login.png" alt="Facebook Login Button">
+			</a>
+			<a href="#" id="logout-button" class="hidden">
+				Logout
+			</a>
+		</header>
+
+		<div id="map"></div>
+
+		<h3>Rock Slide</h3>
+		<div id="event-container"></div>
+
+		<div class="about-container">
+			<h3>About This Page</h3>
+			<p>Hola! Welcome to the Rock Fulton web app! I made this page for the <a href="https://www.facebook.com/groups/1557893111186797/">Fulton Rocks</a> Facebook group.  I wanted to play with some new technology (<a href="https://firebase.google.com/">Firebase</a>), and this simple app was my side project to do so.  As a bonus, maybe you'll get a kick out of finding and placing rocks using it!</p>
+
+			<p>The idea is simple. Sign in, and you get the ability to "find" and "place" rocks.  No worries, I only store your name and photo, as well as any "find" and "place" events you make using this app. If you happen to be using the app and come across a rock that has alread been found, but not marked so, please "find" it so others don't go on a wild goose chase <span class="smiles">:)</span></p>
+
+			<p>I wrote this fairly quickly, so it may not be completely bug free. Sorry! You can complain to me at <a href="https://twitter.com/mathieujonson">@mathieujonson</a>. I also realize it's not the most beautiful thing on the web.  What can I say? I'm a developer, not a designer <span class="smiles">:)</span>  I'm also open to feature requests, to a degree.  We'll see how it goes.  Enjoy the app!</p>
+		</div>
+
+		<footer>
+			<p id="unauth-footer-text">Sign in to add and remove rocks!</p>
+			<button id="add-rock-button" class="hidden">Add A Rock</button>
+		</footer>
+
+		<div class="modal" id="modal-one" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-header">
+					<h2>More about the rock?</h2>
+					<button id="btn-close" class="btn-close">×</button>
+				</div>
+				<div class="modal-body">
+					<label for="description">Rock description (optional):</label>
+					<input type="text" name="description" id="description" placeholder="It's pretty! It's blue!">
+
+					<label for="location">Location hint (optional):</label>
+					<input type="text" name="location" id="location" placeholder="It's up high somewhere!">
+
+					<p class="add-notice"><strong>Note:</strong>  Rocks are added using your current location.  You must "allow" this site to access your location in order to place rocks.</p>
+
+					<div id="message-container"></div>
+				</div>
+				<div class="modal-footer">
+					<button id="submit-button" class="submit-button">Put it on the map!</button>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var map, mapContainer;
+
+			mapContainer = document.getElementById('map').style.height = (window.innerHeight - 300) + 'px';
+
+			function initMap() {
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 38.855146, lng: -91.950802},
+					zoom: 12
+				});
+			}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe-A3bWOiRQORammqT2raMGL0YF2OT3ho&callback=initMap" async defer></script>
+
+		<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyBfPcA1P4_amEmzyduIHouxJ2q0oKMwR24",
+				authDomain: "rock-fulton.firebaseapp.com",
+				databaseURL: "https://rock-fulton.firebaseio.com",
+				storageBucket: "",
+			};
+			firebase.initializeApp(config);
+
+			var database = firebase.database();
+		</script>
+
+
+		<script src="js/main.js"></script>
+	</body>
+</html>
